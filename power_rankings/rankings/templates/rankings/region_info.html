@@ -1,0 +1,25 @@
+{% load static %}
+<head>
+  <link rel="stylesheet" href="{% static 'IndexStyle.css' %}">
+  <meta name="viewport">
+  <meta charset="utf-8">
+</head>
+<body>
+  <div class = "left-bar"></div>
+  <div class="right-bar"> </div>
+  <div class="top-bar">
+      <h1> League of Legends Esports Power Rankings </h1>
+  </div>
+  <h1> {{ region.name }} </h1>
+  <h2> Skill: {{ region.skill }} </h2>
+
+    <li>Wins: {{ region.wins }}</li>
+      <li>losses: {{ region.losses }}</li>
+    <li>Games Played {{ region.gamesPlayed }}</li>
+  <li> Scaled Games played: {{ region.scaledGamesPlayed }} </li>
+  <li> Scaled Winrate: {{ region.scaledWR }} </li>
+  <h2> Calculations: </h2>
+  {{ region.scaledWR }} * .6 + {{ region.scaledGamesPlayed }} * .4 = {{ region.skill }}
+
+  <p> These stats come from international tournaments like MSI and worlds. </p>
+</body>

@@ -1,0 +1,62 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'IndexStyle.css' %}">
+    <meta name="viewport">
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <div class = "left-bar"></div>
+    <div class="right-bar"> </div>
+    <div class="top-bar">
+        <h1> League of Legends Esports Power Rankings </h1>
+    </div>
+    <h3> <a href="/methodology">  More information about the methodology can be found here </a> </h3>
+    <h2> Skill: {{ team.skill }}</h2>
+    <h2> Rank: {{ team.rank }} <h3>
+            <a href="/rankings/regions/{{ team.region.name }}"> {{ team.region.name }}</a>
+
+            <p> Recent Wins: {{ team.youngWins }} </p>
+            <p> Recent Losses: {{ team.youngLosses }} </p>
+            
+    <h1>
+        {{ team.name }}
+    </h1>
+    <p> Players: </p>
+    {% if roster %}
+        <ul>
+        {% for player in roster %}
+            {% if not player.skill is None %}
+                <li><a href="/rankings/players/{{ player.player_id }}"> {{ player.handle }} Skill: {{ player.skill }} </a></li>
+            {% else %}
+                <li><a href="/rankings/players/{{ player.player_id }}"> {{ player.handle }} : Not enough data </a></li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    {% else %}
+    <p>No players were found</p>
+    {% endif %}
+
+        <h4> Any missing players have an assumed skill value of 30</h4>
+        <h4> Any player with less than 5 games on record has no skill rating to avoid small sample size outliers</h4>
+        <h6> Skill calculations: </h6>
+
+    <p> Team stats are Min Max scaled between 1 and 100</p>
+    <h3> The team skill was calculated as follows: </h3>
+        <li>Region Skill:{{ team.region.skill }}</li>
+        <li>Team Level: {{ team.scaledLevel }}</li>
+        <li>Player Skill: {{ team.scaledPlayerSkill }}</li>
+        <li>Recent Winrate: {{ team.scaledYoungWR }}</li>
+        <li>Old Winrate {{ team.scaledAgedWR }}</li>
+        <li>Very old winrate: {{ team.scaledOldWR }}</li>
+        <li>Very very old winrate: {{ team.scaledAncientWR }} </li>
+        <p>
+            {{ team.region.skill }} * .2 + {{ team.scaledLevel }} * .46 + {{ team.scaledPlayerSkill }} * .21 + {{ team.scaledYoungWR }} * .09 + {{ team.scaledAgedWR }} *.02
+        {{ team.scaledOldWR }} * .01 + {{ team.scaledAncientWR }} * .01 = {{ team.skill }}
+        </p>
+    <p> All values are capped to be 100 at a certain value</p>
+    <p> The region skill is scaled in the final calculation, the value shown here is the unscaled region skill. </p>
+
+
+</body>

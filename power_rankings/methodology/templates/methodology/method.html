@@ -1,0 +1,49 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'IndexStyle.css' %}">
+    <meta name="viewport">
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class = "left-bar"></div>
+    <div class="right-bar"> </div>
+    <div class="top-bar">
+            <h1> Ranking methodology </h1>
+    </div>
+        <div class="top-bar-gap"></div>
+
+    <div class="method-container"> 
+        <p> 
+            This data is based on esports data provided by riot games located here:
+            <a href="https://power-rankings-dataset-gprhack.s3.us-west-2.amazonaws.com/" target="_blank">
+                Link to data 
+            </a>
+        </p>
+        <p> This is over 500 Gigabytes of data about esports games from the past 4 years</p>
+        <p> Some regions have more teams with data than others such as NA and EMEA</p>
+        <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+        <p> 
+            Stats are collecter for each player and for each team, scaled between 1 and 100, and multiplied with weights to obtain skill
+        </p>
+        <p> Stats are scaled using the following formula:X \[ X_{\text{scaled}} = \frac{X - X_{\text{min}}}{X_{\text{max}} - X_{\text{min}}}\]
+        </p>
+        <p> Player skill: player wins, player losses, kda, turrets destroyed,first bloods </p>
+        <p> Team skill: team winrate, divided into four catagories by year game played, region,avgPlayerSkill,level</p>
+        <p> Region skill: international winrate, international representation/games played </p>
+        <p> The weight values are arbitrary and chosen by the developer of this website based on trial and error </p>
+        <div>
+        <li> ancientWeight = .01</li>
+            <li>  oldWeight = .02</li>
+            <li>  agedWeight = .07</li>
+            <li>   youngWeight = .2</li>
+            <li>    levelWeight = .25</li>
+            <li>    regionWeight = .2</li>
+            <li>   playerWeight = .25 </li>
+        </div>
+    </div>
+    
+
+
+</body>

@@ -1,0 +1,48 @@
+ {% load static %}
+ <head>
+       <link rel="stylesheet" href="{% static 'IndexStyle.css' %}">
+       <meta name="viewport">
+       <meta charset="utf-8">
+   </head>
+<body>
+       <div class = "left-bar"></div>
+       <div class="right-bar"> </div>
+       <div class="top-bar">
+           <h1> League of Legends Esports Power Rankings </h1>
+       </div>
+       <div class="top-bar-gap">
+       </div>
+       <div class="method-container">
+              <h1> {{ player.handle }} </h1>
+              <p> First name: {{ player.first_name }}</p>
+              <p> Last name {{ player.last_name }} </p>
+              <p> Skill: {{ player.skill }}</p>
+              <p> Team: {{ player.team }}</p>
+              <p> His team has a skill rating of {{ player.team.skill }}</p>
+                     <li>Player ID: {{ player.player_id }}</li>
+                     <li>First Name: {{ player.first_name }}</li>
+                     <li>Last Name: {{ player.last_name }}</li>
+                     <li>Wins: {{ player.wins }}</li>
+                     <li>Losses: {{ player.losses }}</li>
+                     <li>Kills: {{ player.kills }}</li>
+                     <li>Deaths: {{ player.deaths }}</li>
+                     <li>Turrets destroyed: {{ player.avgTD }}</li>
+                     <li>Games Played: {{ player.games_played }}</li>
+
+              <p> Calculations: </p>
+              {% if player.games_played > 5 %}
+              <li> Winrate: {{ player.scaledWR }}</li>
+              <li>  KDA: {{ player.scaledKD }}</li>
+              <li>   Avg Turrets Destroyed: {{ player.scaledTD }} </li>
+              <li>  Avg First Bloods: {{ player.scaledFB }}  </li>
+              <li>   Games played: {{ player.scaledGP }}  </li>
+              <p>
+              {{ player.scaledWR }} * .3 + {{ player.scaledKD }} * .3 + {{ player.scaledFB }} * .05 + {{ player.scaledTD }} * .05 +
+              {{ player.scaledGP }} * .3 = {{ player.skill }}
+              </p>
+              {% else %}
+              <p> This player has less than 5 games played so no skill was calculated</p>
+              {% endif %}
+              <p> These values are Min/Max scaled versions of the value with formula X-Xmin/Xmax-Xmin</p>
+</div>
+</body>

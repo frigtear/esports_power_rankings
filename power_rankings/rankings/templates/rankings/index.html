@@ -1,0 +1,47 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'IndexStyle.css' %}">
+    <meta name="viewport">
+    <meta charset="utf-8">
+</head>
+<body>
+    <div class = "left-bar"></div>
+    <div class="right-bar"> </div>
+    <div class="top-bar">
+        <h1> League of Legends Esports Power Rankings </h1>
+        <p class="index-instructions"> Click on a team to see more detailed information</p>
+    </div>
+    <div class="top-bar-gap">
+        <span>Rank</span><span>Name</span><span>Region</span>
+    </div>
+    <div class="list-container">
+    {% if teams %}
+        {% for team in teams %}
+            <div  class="rank-container"> 
+                <span class="rank-text">  {{team.rank}} </span>
+                    <a href="/rankings/teams/{{ team.team_id }}/">
+                        <button class="rank-buttons"> {{team.name}}  </button> 
+                    </a> 
+                <span class="region-text"> {{ team.region }} </span> 
+            </div>
+        {% endfor %}
+    {% else %}
+        <p> Error: No teams found </p>
+    {% endif %}
+    </div>
+    <div class="top-bar">
+        <h1> Region rankings </h1>
+    </div>
+    <div class="list-container">
+    {%  for region in regions %}
+    
+    <p>
+        <a href="/rankings/regions/{{ region.name }}/"> 
+            <button class="rank-buttons"> {{ region.name }} (Skill: {{ region.skill }})</button>
+        </a>
+    </p>
+    {% endfor %}
+</div>
+    
+</body>
